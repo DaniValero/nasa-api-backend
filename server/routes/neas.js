@@ -5,9 +5,29 @@ const express = require('express')
 const router = express.Router()
 
 router.get('/', async (req, res) => {
-    console.log(req.query)
-    const neas = await Neas.find({$toLower: {orbit_class: `${req.query.class}`}}).select('designation period_yr')
-    res.send(neas)
+    if(req.query.class) {
+        console.log(req.query)
+        const neas = await Neas.find({$toLower: {orbit_class: `${req.query.class}`}}).select('designation period_yr')
+        res.send(neas)
+
+    } else if (req.query.from && req.query.to){
+        console.log(req.query)
+        const result = await Neas.find({discovery_date: {$gte: req.query.from, $lt: req.query.to}})
+        res.send(result).status(200)
+
+    } else if (req.query.from) {
+        console.log(req.query)
+        const result = await Neas.find({discovery_date: {$gte: req.query.from}})
+        res.send(result).status(200)
+
+    } else if (req.query.to) {
+        console.log(req.query)
+        const result = await Neas.find({discovery_date: {$lt: req.query.to}})
+        res.send(result).status(200)
+    } else {
+        res.send("No se han especificado parámetros de búsqueda").status(404)
+    }
+
 })
 
 

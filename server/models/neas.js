@@ -1,8 +1,10 @@
 const mongoose = require('mongoose')
 
+
+
 const neasSchema = new mongoose.Schema({
     designation: String,
-    discovery_date: Date,
+    discovery_date: String,
     h_mag: String,
     moid_au: String,
     q_au_1: String,
@@ -16,3 +18,4 @@ const neasSchema = new mongoose.Schema({
 const Neas = mongoose.model('neas', neasSchema)
 
 module.exports = Neas
+exports.neasSchema = neasSchema
