@@ -27,4 +27,13 @@ router.put('/edit/:designation', async(req, res) => {
     res.send(neas)
 })
 
+
+router.delete('/delete/:designation', async (req, res) => {
+    const neas = await Neas.findOneAndDelete({designation: req.params.designation})
+
+    res.send(neas)
+})
+
+
+
 module.exports = router
