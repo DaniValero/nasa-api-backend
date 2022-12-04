@@ -4,8 +4,10 @@ app.use(express.json())
 
 const landings = require('./routes/landings')
 const neas = require('./routes/neas')
+const users = require('./routes/users')
 require('./db')()
 
+app.use('/api/users', users)
 
 app.use('/api/astronomy/landings', landings)
 
