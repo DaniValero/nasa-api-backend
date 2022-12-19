@@ -1,11 +1,12 @@
 const express = require('express')
 const app = express()
 app.use(express.json())
+require('dotenv').config()
 
 const landings = require('./routes/landings')
 const neas = require('./routes/neas')
 const users = require('./routes/users')
-require('./db')()
+require('./startup/db')()
 
 app.use('/api/users', users)
 
