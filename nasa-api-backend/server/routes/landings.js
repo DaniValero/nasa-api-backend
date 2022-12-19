@@ -11,16 +11,24 @@ router.get('/', async (req, res) => {
         const query = req.query.minimum_mass
         const result = await Landing.find({$expr : {$gt : [{$toDecimal : "$mass"}, +query]}}).select('name mass')
         res.send(result).status(200)
+
     } else if (req.query.from && req.query.to) {
-        
-         let query1 = new Date (`January 1, ${req.query.from} 00:00:00 GMT+0`)
-         let query2 = new Date (`January 1, ${req.query.to} 00:00:00 GMT+0`)
-         console.log(query1)
-         console.log(query2)
-        // let query = req.query.from += "-01-01"
-        // toISOString()
-        const result = await Landing.find({year:{$gte: (query1).toISOString, $lt: (query2).toISOString}}).select('name mass year')
+        const result = await Landing.find({year: {$gte: req.query.from, $lt: req.query.to}})
         res.send(result).status(200)
+
+    } else if (req.query.from) {
+        const query = req.query.from
+        console.log(req.query)
+        const result = await Landing.find({year: {$gte: query}})
+        res.send(result).status(200)
+
+    } else if (req.query.to) {
+        const query = req.query.to
+        console.log(query)
+        const result = await Landing.find({year: {$lt: query}})
+        res.send(result).status(200)
+    } else {
+        res.send("No se han especificado parámetros de búsqueda").status(404)
     }
 }) 
 
@@ -58,12 +66,5 @@ router.delete('/delete/:id', async (req, res) => {
 
     res.send(landing)
 })
-
-
-
-
-
-
-
 
 module.exports = router
