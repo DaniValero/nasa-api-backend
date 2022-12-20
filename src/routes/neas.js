@@ -7,7 +7,7 @@ const router = express.Router()
 router.get('/', async (req, res) => {
     if(req.query.class) {
         console.log(req.query)
-        const neas = await Neas.find({$toLower: {orbit_class: `${req.query.class}`}}).select('designation period_yr')
+        const neas = await Neas.find({$toLower: {orbit_class: `${req.query.class}`}})
         res.send(neas)
 
     } else if (req.query.from && req.query.to){
