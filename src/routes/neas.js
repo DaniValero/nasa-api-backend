@@ -25,7 +25,8 @@ router.get('/', async (req, res) => {
         const result = await Neas.find({discovery_date: {$lt: req.query.to}})
         res.send(result).status(200)
     } else {
-        res.send("No se han especificado parámetros de búsqueda").status(404)
+        const result = await Neas.find({})
+        res.send(result).status(200)
     }
 
 })

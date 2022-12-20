@@ -28,7 +28,8 @@ router.get('/', async (req, res) => {
         const result = await Landing.find({year: {$lt: query}})
         res.send(result).status(200)
     } else {
-        res.send("No se han especificado parámetros de búsqueda").status(404)
+        const result = await Landing.find({})
+        res.send(result).status(200)
     }
 }) 
 
