@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
 
     if(req.query.minimum_mass) {
         const query = req.query.minimum_mass
-        const result = await Landing.find({$expr : {$gt : [{$toDecimal : "$mass"}, +query]}}).select('name mass')
+        const result = await Landing.find({$expr : {$gt : [{$toDecimal : "$mass"}, +query]}})
         res.send(result).status(200)
 
     } else if (req.query.from && req.query.to) {
@@ -34,7 +34,7 @@ router.get('/', async (req, res) => {
 }) 
 
 router.get('/mass/:number', async (req, res) => {
-    const result = await Landing.find({mass: `${req.params.number}`}).select('name mass')
+    const result = await Landing.find({mass: `${req.params.number}`}).select
 
     res.send(result).status(200)
 })
@@ -42,7 +42,7 @@ router.get('/mass/:number', async (req, res) => {
 router.get('/class/:class', async (req, res) => {
     console.log(req.params.class)
 
-    const result = await Landing.find({recclass: `${req.params.class}`}).select('name recclass')
+    const result = await Landing.find({recclass: `${req.params.class}`})
 
     res.send(result).status(200)
 })
