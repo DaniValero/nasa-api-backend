@@ -25,11 +25,11 @@ router.get('/', async (req, res) => {
     } else if (req.query.to) {
         const query = req.query.to
         console.log(query)
+        console.log(req.query)
         const result = await Landing.find({year: {$lt: query}})
         res.send(result).status(200)
     } else if(req.query.recclass){
-        const query = req.query.recclass
-        const result = await Landing.find({recclass: `${query}`})
+        const result = await Landing.find({recclass: `${req.query.recclass}`})
         res.send(result).status(200)
     } else {
         const result = await Landing.find({})
