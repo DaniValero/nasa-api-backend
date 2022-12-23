@@ -54,7 +54,7 @@ router.get('/class/:class', async (req, res) => {
 
 router.post('/create', async (req, res) => {
     const landing = new Landing(req.body) 
-
+    
     const newLanding = await landing.save()
 
     res.send(newLanding)
